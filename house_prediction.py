@@ -123,14 +123,4 @@ if __name__ == '__main__':
     train3(df)
     rfr_model,prediction = train4(df,df2)
     print('feature_importance = \n',rfr_model.feature_importances_)
-    
-    
-
-
-
-
-
-
-
-
-
+   
