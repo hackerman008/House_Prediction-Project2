@@ -9,9 +9,8 @@ from sklearn.ensemble import RandomForestRegressor
 import sklearn.metrics as metrics
 
 
-#training using linear regression
 def train1(df):
-
+    """function to train model using linear regression"""
     x = df.ix[:,0:-1].values
     y = df.ix[:,'SalePrice'].values
     x_train,x_test,y_train,y_test = train_test_split(x,y,random_state=1)
@@ -22,8 +21,9 @@ def train1(df):
     prediction = lr_model.predict(x_test)
     print('Linear Regression MSE=',metrics.mean_squared_error(y_test,prediction))
 
-#training using decision tree regressor
+
 def train2(df):
+    """using decision tree for regression and calculating mean squared error"""
     x = df.ix[:,0:-1].values
     y = df.ix[:,'SalePrice'].values
     x_train,x_test,y_train,y_test = train_test_split(x,y,random_state=1)
@@ -37,6 +37,7 @@ def train2(df):
     return
 
 def train3(df):
+     """using random forest for regression and calculating mean squared error"""
     x = df.ix[:,0:-1].values
     y = df.ix[:,'SalePrice'].values
     x_train,x_test,y_train,y_test = train_test_split(x,y,random_state=1)
@@ -51,6 +52,7 @@ def train3(df):
     
     
 def train4(df,df2):
+    """function to predict and store the ouput in a csv"""
     x = df.ix[:,0:-1].values
     y = df.ix[:,'SalePrice'].values
     
@@ -68,12 +70,14 @@ def train4(df,df2):
 
 
 def load_data(): 
+    """function to load data"""
     os.chdir(r'C:\programming\kaggle\house prediction dataset')
     df = pd.read_csv('train.csv')
     df2 = pd.read_csv('test.csv')
     return df,df2
 
 def finding_null_columns(df,df2):
+    """function to find null columns"""
     l = []
     l2 = []
     a = df.isnull().any()
@@ -90,6 +94,7 @@ def finding_null_columns(df,df2):
     return l,l2 
     
 def removing_columns(l,l2,df,df2):
+    """function to remove null columns"""
     labels_to_remove = list(set(l+l2))
     df = df.drop(axis = 1,labels = labels_to_remove)
     df2 = df2.drop(axis = 1,labels = labels_to_remove)
@@ -97,6 +102,7 @@ def removing_columns(l,l2,df,df2):
     
 
 def converting_to_indicator_variables(df,df2):
+    """function to convert categorical to numerical values"""
     for i in df2.columns:
         if df2[i].dtype not in [np.int64,np.float64]:
             l_encoder = preprocessing.LabelEncoder()
